@@ -1,28 +1,28 @@
 import React, { useRef, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { messageState } from "../../recoil/atoms/messageAtom.js";
-import { socketState } from "../../recoil/atoms/socketAtom.js";
-import { roomIdState } from "../../recoil/atoms/roomAtom.js";
-import { userState } from "../../recoil/atoms/userAtom.js";
+import { messageState } from "../../recoil/atoms/messageAtom.ts";
+import { socketState } from "../../recoil/atoms/socketAtom.ts";
+import { roomIdState } from "../../recoil/atoms/roomAtom.ts";
+import { userState } from "../../recoil/atoms/userAtom.ts";
 
 const Chat = () => {
-  const [message, setMessage] = useRecoilState(messageState);
-  const inputRef = useRef(null);
+  const [message] = useRecoilState(messageState);
+  const inputRef = useRef<HTMLInputElement | null>(null); // Typed as HTMLInputElement | null
   const [socket] = useRecoilState(socketState);
   const [roomId] = useRecoilState(roomIdState);
   const [user] = useRecoilState(userState);
 
-  const messagesContainerRef = useRef(null);
+  const messagesContainerRef = useRef<HTMLDivElement | null>(null); // Typed as HTMLDivElement | null
 
   useEffect(() => {
     const container = messagesContainerRef.current;
     if (!container) return;
-    container.scrollTop = container.scrollHeight;
+    container.scrollTop = container.scrollHeight; // No error now
   }, [message]);
 
   const handleSend = () => {
-    const newMsg = inputRef.current.value.trim();
-    if (!newMsg) return;
+    const newMsg = inputRef.current?.value.trim(); // Use optional chaining
+    if (!newMsg || !socket) return; // Ensure socket is not null
 
     socket.send(
       JSON.stringify({
@@ -35,10 +35,12 @@ const Chat = () => {
       })
     );
 
-    inputRef.current.value = "";
+    if (inputRef.current) {
+      inputRef.current.value = ""; // Clear the input field
+    }
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => { // Typed event
     if (e.key === "Enter") handleSend();
   };
 

@@ -1,22 +1,24 @@
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { roomIdState, joinedState } from "../../recoil/atoms/roomAtom.js";
-import { socketState } from "../../recoil/atoms/socketAtom.js";
-import { userState } from "../../recoil/atoms/userAtom.js";
+import { roomIdState, joinedState } from "../../recoil/atoms/roomAtom.ts";
+import { socketState } from "../../recoil/atoms/socketAtom.ts";
+import { userState } from "../../recoil/atoms/userAtom.ts";
 
 interface User {
-  id: string;
-  name: string;
+  id: string | null;
+  name: string | null;
 }
 
 const Home = () => {
-  const [roomId, setRoomId] = useRecoilState<string | null>(roomIdState);
+  const [roomId, setRoomId] = useRecoilState<string>(roomIdState);
   const [currentId, setCurrentId] = useState("");
   const [erroMessage, setErroMessage] = useState("");
   const [socket] = useRecoilState<WebSocket | null>(socketState);
   const [joined, setJoined] = useRecoilState(joinedState);
   const [user, setUser] = useRecoilState<User>(userState);
   const [name, setName] = useState("");
+
+  console.log(joined, user)
 
   const joinRoom = async () => {
     if (!currentId) {
