@@ -18,7 +18,6 @@ wss.on("connection", (socket) => {
   socket.on("message", (msg) => {
     try {
       const parsedMsg = JSON.parse(msg.toString());
-      console.log("Received message:", parsedMsg);
 
       if (parsedMsg.type === "join") {
         const room = parsedMsg.payload.room;

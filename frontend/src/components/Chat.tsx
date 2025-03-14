@@ -102,7 +102,7 @@ const Chat = () => {
             type="submit"
             onClick={handleSend}
             className="
-              ml-2 px-4 py-2
+              ml-2 md:px-4 py-2 sm:px-3 lg:px-4 px-2
               bg-gray-300 hover:bg-gray-400
               text-gray-900 font-semibold
               rounded-lg transition duration-200
