@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "preinstall": "npm install typescript",
     "dev": "tsc -b ",
     "build": "tsc -b",
     "start": "nodemon dist/index.js"
@@ -15,5 +16,8 @@
     "@types/ws": "^8.18.0",
     "nodemon": "^3.1.9",
     "ws": "^8.18.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.2"
   }
 }
