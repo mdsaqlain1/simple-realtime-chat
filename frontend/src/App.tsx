@@ -14,7 +14,7 @@ const App = () => {
   const [roomId, setRoomId] = useRecoilState<string>(roomIdState);
   console.log(roomId)
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:8080");
+    const ws = new WebSocket(import.meta.env.VITE_WS_URL);
 
     ws.onopen = () => {
       console.log("Connected to server");
